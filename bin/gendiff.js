@@ -2,12 +2,14 @@
 import { Command } from 'commander';
 const program = new Command();
 
-// program
-//     .version('0.0.1', '-V, --version ', 'output the version number')
-//     .helpOption('-h, --help', 'display help for command')
 
-program  
+program
+  .arguments('<filepath1> <filepath2>')
   .description('Compares two configuration files and shows a difference.')
-  .version('0.8.0');
+  .version('0.8.0')
+  .helpOption('-h, --help', 'output usage information')
+  .option('-f, --format <type>', 'output format');
+
+
 program.parse();
-// console.log(22)
+
