@@ -6,7 +6,7 @@
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/ArtuAdler/frontend-project-46.git"
   },
-  "author": "",
+  "author": "Artur Khareksian",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ArtuAdler/frontend-project-46/issues"
@@ -23,5 +23,10 @@
   "dependencies": {
     "commander": "^9.4.0",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.24.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   }
 }
