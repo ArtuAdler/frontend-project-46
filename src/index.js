@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 const getFilePath = (filepath) => path.resolve(process.cwd(), filepath);
 
-const stringify = (data, symb = ' ', count = 3) => {
+const stringify = (data, symb = ' ', count = 2) => {
   const tab = symb.repeat(count);
   const x = JSON.stringify(data, null, tab);
   return x.replaceAll('"', '').replaceAll(',', '');
