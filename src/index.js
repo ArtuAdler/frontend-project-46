@@ -2,7 +2,7 @@ import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
 import _ from 'lodash';
 import { fileURLToPath } from 'url';
-import parse from './parce.js';
+import parse from './parsers.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

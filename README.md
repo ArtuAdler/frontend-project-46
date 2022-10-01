@@ -7,4 +7,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/ArtuAdler/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/ArtuAdler/frontend-project-46/actions)
 
-[![asciicast](https://asciinema.org/a/ZkY3jUYzf7xvQ7D6klWSEJOiQ.svg)](https://asciinema.org/a/ZkY3jUYzf7xvQ7D6klWSEJOiQ)
+### Сравнение плоских файлов json
+[![asciicast](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER.svg)](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER)
+
+### Сравнение плоских файлов yaml
+[![asciicast](https://asciinema.org/a/BeJU7ih3t8POrBvjsZBQXCqrP.svg)](https://asciinema.org/a/BeJU7ih3t8POrBvjsZBQXCqrP)
