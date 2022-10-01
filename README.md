@@ -11,4 +11,4 @@
 [![asciicast](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER.svg)](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER)
 
 ### Сравнение плоских файлов yaml
-[![asciicast](https://asciinema.org/a/BeJU7ih3t8POrBvjsZBQXCqrP.svg)](https://asciinema.org/a/BeJU7ih3t8POrBvjsZBQXCqrP)
+[![asciicast](https://asciinema.org/a/Hh3hsXUVDUPKGMYYs9kVI5A6T.svg)](https://asciinema.org/a/Hh3hsXUVDUPKGMYYs9kVI5A6T)
