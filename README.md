@@ -12,3 +12,6 @@
 
 ### Сравнение плоских файлов yaml
 [![asciicast](https://asciinema.org/a/Hh3hsXUVDUPKGMYYs9kVI5A6T.svg)](https://asciinema.org/a/Hh3hsXUVDUPKGMYYs9kVI5A6T)
+
+### Сравнение вложеных файлов yaml и json
+[![asciicast](https://asciinema.org/a/c3xJnlL496rw8IBxIeTEj7Ksq.svg)](https://asciinema.org/a/c3xJnlL496rw8IBxIeTEj7Ksq)
