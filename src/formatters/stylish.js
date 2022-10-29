@@ -11,6 +11,7 @@ const stringify = (value, replacer = ' ', spacesCount = 1) => {
     const lines = Object
       .entries(currentValue)
       .map(([key, val]) => `${currentIndent}${key}: ${iter(val, depth + 1)}`);
+
     return [
       '{',
       ...lines,
@@ -28,8 +29,9 @@ const stylish = (tree) => {
     const replacer = ' ';
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
-    const indentforDiff = replacer.repeat(indentSize - 2);
+    const indentDiff = replacer.repeat(indentSize - 2);
     const indentClose = replacer.repeat(indentSize - 4);
+
     const lines = Object
       .entries(node)
       .map(([key, val]) => {
@@ -40,13 +42,13 @@ const stylish = (tree) => {
         const stringValue = stringify(value, replacer, indentSize);
         switch (type) {
           case 'added':
-            return `${indentforDiff}+ ${key}: ${stringValue}`;
+            return `${indentDiff}+ ${key}: ${stringValue}`;
           case 'deleted':
-            return `${indentforDiff}- ${key}: ${stringValue}`;
+            return `${indentDiff}- ${key}: ${stringValue}`;
           case 'unchanged':
-            return `${indentforDiff}  ${key}: ${stringValue}`;
+            return `${indentDiff}  ${key}: ${stringValue}`;
           case 'changed':
-            return `${indentforDiff}- ${key}: ${stringify(val.oldValue, replacer, indentSize)}\n${indentforDiff}+ ${key}: ${stringify(val.newValue, replacer, indentSize)}`;
+            return `${indentDiff}- ${key}: ${stringify(val.oldValue, replacer, indentSize)}\n${indentDiff}+ ${key}: ${stringify(val.newValue, replacer, indentSize)}`;
           default:
             throw new Error(`Unknown type: '${type}'!`);
         }
@@ -59,4 +61,5 @@ const stylish = (tree) => {
   };
   return iter(tree, 1);
 };
+
 export default stylish;
