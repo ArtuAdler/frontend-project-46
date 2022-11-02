@@ -1,11 +1,18 @@
+# Вычислитель отличий
+Приложение с помощью которого можно сравнить два файла с расширениями .json и .yaml
+Результат может выводится в трёх форматах - plain, stylish, json
+
+### Tests and linter status:
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2b9deaac855649faf566/test_coverage)](https://codeclimate.com/github/ArtuAdler/frontend-project-46/test_coverage)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/2b9deaac855649faf566/maintainability)](https://codeclimate.com/github/ArtuAdler/frontend-project-46/maintainability)
-
 [![hello-world](https://github.com/ArtuAdler/frontend-project-46/actions/workflows/nodejs.yml/badge.svg)](https://github.com/ArtuAdler/frontend-project-46/actions/workflows/nodejs.yml)
-
-### Hexlet tests and linter status:
 [![Actions Status](https://github.com/ArtuAdler/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/ArtuAdler/frontend-project-46/actions)
+
+### Установка
+```bash
+make install
+npm link
+```
 
 ### Сравнение плоских файлов json
 [![asciicast](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER.svg)](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER)
