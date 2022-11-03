@@ -13,8 +13,8 @@ const genDiff = (file1, file2, formatN) => {
   const data1 = readFileSync(getFixturePath(file1), 'utf-8');
   const data2 = readFileSync(getFixturePath(file2), 'utf-8');
 
-  const format1 = getFixturePath(file1).split('.')[1];
-  const format2 = getFixturePath(file2).split('.')[1];
+  const format1 = path.extname(file1).slice(1);
+  const format2 = path.extname(file2).slice(1);
 
   const obj1 = parse(data1, format1);
   const obj2 = parse(data2, format2);
