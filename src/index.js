@@ -15,7 +15,6 @@ const getData = (filepath) => {
 };
 
 const genDiff = (filepath1, filepath2, outputFormat) => {
-  console.log(buildFullPath(filepath1));
   const data1 = getData(filepath1);
   const data2 = getData(filepath2);
   const tree = buildTree(data1, data2);
