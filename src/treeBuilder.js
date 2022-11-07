@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const compare = (obj1, obj2) => {
+const buildTree = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
 
@@ -11,7 +11,7 @@ const compare = (obj1, obj2) => {
     const object1Value = obj1[key];
     const object2Value = obj2[key];
     if (_.isPlainObject(object1Value) && _.isPlainObject(object2Value)) {
-      const object = { [key]: { type: 'children', value: compare(object1Value, object2Value) } };
+      const object = { [key]: { type: 'children', value: buildTree(object1Value, object2Value) } };
       return { ...acc, ...object };
     }
     if (object1Value === object2Value) {
@@ -30,4 +30,4 @@ const compare = (obj1, obj2) => {
   }, {});
 };
 
-export default compare;
+export default buildTree;

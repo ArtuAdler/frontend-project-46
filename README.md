@@ -11,6 +11,8 @@
 ### Установка
 ```bash
 make install
+```
+```bash
 npm link
 ```
 

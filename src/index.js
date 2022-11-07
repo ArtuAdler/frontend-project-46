@@ -1,23 +1,24 @@
 import path from 'path';
 import { readFileSync } from 'fs';
 import parse from './parsers.js';
-import getDiff from './formatters/index.js';
-import compare from './compare.js';
+import format from './formatters/index.js';
+import buildTree from './treeBuilder.js';
 
-const getFixturePath = (filename) => path.resolve(process.cwd(), '__fixtures__', filename);
+const buildFullPath = (filepath) => path.resolve(process.cwd(), '__fixtures__', filepath);
 
-const genDiff = (file1, file2, format) => {
-  const data1 = readFileSync(getFixturePath(file1), 'utf-8');
-  const data2 = readFileSync(getFixturePath(file2), 'utf-8');
+const extractFormat = (filepath) => path.extname(filepath).slice(1);
 
-  const format1 = path.extname(file1).slice(1);
-  const format2 = path.extname(file2).slice(1);
+const getData = (filepath) => {
+  const data = readFileSync(buildFullPath(filepath), 'utf-8');
+  const extension = extractFormat(filepath);
+  return parse(data, extension);
+};
 
-  const obj1 = parse(data1, format1);
-  const obj2 = parse(data2, format2);
-
-  const tree = compare(obj1, obj2);
-  return getDiff(tree, format);
+const genDiff = (filepath1, filepath2, outputFormat) => {
+  const data1 = getData(filepath1);
+  const data2 = getData(filepath2);
+  const tree = buildTree(data1, data2);
+  return format(tree, outputFormat);
 };
 
 export default genDiff;

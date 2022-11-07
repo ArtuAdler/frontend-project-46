@@ -1,7 +1,7 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const getDiff = (data, formatN = 'stylish') => {
+const format = (data, formatN = 'stylish') => {
   switch (formatN) {
     case 'stylish':
       return stylish(data);
@@ -13,4 +13,4 @@ const getDiff = (data, formatN = 'stylish') => {
       throw new Error(`Unknown format: ${formatN}`);
   }
 };
-export default getDiff;
+export default format;
