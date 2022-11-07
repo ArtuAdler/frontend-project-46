@@ -4,7 +4,7 @@ import parse from './parsers.js';
 import format from './formatters/index.js';
 import buildTree from './treeBuilder.js';
 
-const buildFullPath = (filepath) => path.resolve(process.cwd(), filepath);
+const buildFullPath = (filepath) => path.resolve(process.cwd(), '__fixtures__', filepath);
 
 const extractFormat = (filepath) => path.extname(filepath).slice(1);
 
