@@ -16,15 +16,21 @@ const expectedJSON = readFixture('json.txt').trim();
 
 describe('genDiff', () => {
   test('should be work with json', () => {
-    expect(genDiff('file1.json', 'file2.json')).toEqual(expectedStylish);
-    expect(genDiff('file1.json', 'file2.json', 'stylish')).toEqual(expectedStylish);
-    expect(genDiff('file1.json', 'file2.json', 'plain')).toEqual(expectedPlain);
-    expect(genDiff('file1.json', 'file2.json', 'json')).toEqual(expectedJSON);
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+    expect(genDiff(filepath1, filepath2)).toEqual(expectedStylish);
+    expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(expectedStylish);
+    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(expectedPlain);
+    expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedJSON);
   });
   test('should be work with yaml', () => {
-    expect(genDiff('file1.yaml', 'file2.yaml')).toEqual(expectedStylish);
-    expect(genDiff('file1.yaml', 'file2.yaml', 'stylish')).toEqual(expectedStylish);
-    expect(genDiff('file1.yaml', 'file2.yaml', 'plain')).toEqual(expectedPlain);
-    expect(genDiff('file1.yaml', 'file2.yaml', 'json')).toEqual(expectedJSON);
+    const filepath11 = getFixturePath('file1.yaml');
+    const filepath22 = getFixturePath('file2.yaml');
+    expect(genDiff(filepath11, filepath22)).toEqual(expectedStylish);
+    expect(genDiff(filepath11, filepath22, 'stylish')).toEqual(expectedStylish);
+    expect(genDiff(filepath11, filepath22, 'plain')).toEqual(expectedPlain);
+    expect(genDiff(filepath11, filepath22, 'json')).toEqual(expectedJSON);
   });
 });
+
+// expect(genDiff('file1.yaml', 'file2.yaml', 'json')).toEqual(expectedJSON);
