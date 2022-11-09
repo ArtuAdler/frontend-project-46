@@ -25,7 +25,7 @@ test.each([
   {
     file1: 'file1.yaml', file2: 'file2.yaml', outputFormat: 'json', expected: 'json.txt',
   },
-])('$file1, $file2, $outputFormat, $expected', ({
+])('$file1 and $file2 in $outputFormat should be equal to $expected', ({
   file1, file2, outputFormat, expected,
 }) => {
   const filepath1 = getFixturePath(file1);
