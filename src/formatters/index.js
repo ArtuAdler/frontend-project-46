@@ -1,8 +1,8 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const format = (data, formatN = 'stylish') => {
-  switch (formatN) {
+const format = (data, outputFormat = 'stylish') => {
+  switch (outputFormat) {
     case 'stylish':
       return stylish(data);
     case 'plain':
@@ -10,7 +10,7 @@ const format = (data, formatN = 'stylish') => {
     case 'json':
       return JSON.stringify(data);
     default:
-      throw new Error(`Unknown format: ${formatN}`);
+      throw new Error(`Unknown format: ${outputFormat}`);
   }
 };
 export default format;
