@@ -15,7 +15,7 @@ make install
 ```bash
 npm link
 ```
-__
+##
 ### Сравнение плоских файлов json
 [![asciicast](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER.svg)](https://asciinema.org/a/CEDUvE097GFfMIGjVEQxeJXER)
 
