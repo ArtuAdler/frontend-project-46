@@ -14,27 +14,23 @@ const stringifyValue = (value) => {
   }
 };
 
-const plain = (obj) => {
+const plain = (tree) => {
   const iter = (node, path) => {
-    const lines = Object.entries(node)
-      .map(([key, val]) => {
-        if (val.type === 'children') {
-          return iter(val.value, `${path}${key}.`);
-        }
-        switch (val.type) {
-          case 'added':
-            return `Property '${path}${key}' was added with value: ${stringifyValue(val.value)}`;
-          case 'deleted':
-            return `Property '${path}${key}' was removed`;
-          case 'changed':
-            return `Property '${path}${key}' was updated. From ${stringifyValue(val.oldValue)} to ${stringifyValue(val.newValue)}`;
-          default:
-            return '';
-        }
-      });
+    const lines = node.map((obj) => {
+      switch (obj.type) {
+        case 'nested':
+          return iter(obj.children, `${path}${obj.key}.`);
+        case 'added':
+          return `Property '${path}${obj.key}' was added with value: ${stringifyValue(obj.value)}`;
+        case 'deleted':
+          return `Property '${path}${obj.key}' was removed`;
+        case 'changed':
+          return `Property '${path}${obj.key}' was updated. From ${stringifyValue(obj.value1)} to ${stringifyValue(obj.value2)}`;
+        default: return '';
+      }
+    });
     return lines.filter((str) => str !== '').join('\n');
   };
-  return iter(obj, '');
+  return iter(tree, '');
 };
-
 export default plain;

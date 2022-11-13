@@ -23,41 +23,31 @@ const stringify = (value, replacer = ' ', spacesCount = 1) => {
 
 const stylish = (tree) => {
   const iter = (node, depth, spacesCount = 4) => {
-    if (!_.isObject(node)) {
+    if (!_.isArray(node)) {
       return `${node}`;
     }
     const replacer = ' ';
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
     const indentDiff = replacer.repeat(indentSize - 2);
-    const indentClose = replacer.repeat(indentSize - 4);
-
-    const lines = Object
-      .entries(node)
-      .map(([key, val]) => {
-        const { type, value } = val;
-        if (type === 'children') {
-          return `${currentIndent}${key}: ${iter(value, depth + 1)}`;
-        }
-        const stringValue = stringify(value, replacer, indentSize);
-        switch (type) {
-          case 'added':
-            return `${indentDiff}+ ${key}: ${stringValue}`;
-          case 'deleted':
-            return `${indentDiff}- ${key}: ${stringValue}`;
-          case 'unchanged':
-            return `${indentDiff}  ${key}: ${stringValue}`;
-          case 'changed':
-            return `${indentDiff}- ${key}: ${stringify(val.oldValue, replacer, indentSize)}\n${indentDiff}+ ${key}: ${stringify(val.newValue, replacer, indentSize)}`;
-          default:
-            throw new Error(`Unknown type: '${type}'!`);
-        }
-      });
-    return [
-      '{',
-      ...lines,
-      `${indentClose}}`,
-    ].join('\n');
+    const closeIndent = replacer.repeat(indentSize - 4);
+    const lines = node.map((obj) => {
+      switch (obj.type) {
+        case 'nested':
+          return `${currentIndent}${obj.key}: ${iter(obj.children, depth + 1)}`;
+        case 'added':
+          return `${indentDiff}+ ${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
+        case 'deleted':
+          return `${indentDiff}- ${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
+        case 'unchanged':
+          return `${currentIndent}${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
+        case 'changed':
+          return `${indentDiff}- ${obj.key}: ${stringify(obj.value1, replacer, indentSize)}\n${indentDiff}+ ${obj.key}: ${stringify(obj.value2, replacer, indentSize)}`;
+        default:
+          return '';
+      }
+    });
+    return ['{', ...lines, `${closeIndent}}`].join('\n');
   };
   return iter(tree, 1);
 };
