@@ -23,9 +23,6 @@ const stringify = (value, replacer = ' ', spacesCount = 1) => {
 
 const stylish = (tree) => {
   const iter = (node, depth, spacesCount = 4) => {
-    if (!_.isArray(node)) {
-      return `${node}`;
-    }
     const replacer = ' ';
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
@@ -33,18 +30,16 @@ const stylish = (tree) => {
     const closeIndent = replacer.repeat(indentSize - 4);
     const lines = node.map((obj) => {
       switch (obj.type) {
-        case 'nested':
-          return `${currentIndent}${obj.key}: ${iter(obj.children, depth + 1)}`;
         case 'added':
           return `${indentDiff}+ ${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
         case 'deleted':
           return `${indentDiff}- ${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
-        case 'unchanged':
-          return `${currentIndent}${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
+        case 'nested':
+          return `${currentIndent}${obj.key}: ${iter(obj.children, depth + 1)}`;
         case 'changed':
           return `${indentDiff}- ${obj.key}: ${stringify(obj.value1, replacer, indentSize)}\n${indentDiff}+ ${obj.key}: ${stringify(obj.value2, replacer, indentSize)}`;
         default:
-          return '';
+          return `${currentIndent}${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
       }
     });
     return ['{', ...lines, `${closeIndent}}`].join('\n');

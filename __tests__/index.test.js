@@ -26,8 +26,3 @@ describe('genDiff', () => {
     expect(genDiff(filepath1, filepath2, 'json')).toEqual(expectedJSON);
   });
 });
-
-// test.each(['a', 'b'])('tes', (char) => {
-//   console.log(`Have char ${char}`);
-//   expect(char).toBe('a');
-// });
