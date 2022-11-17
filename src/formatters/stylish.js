@@ -1,50 +1,39 @@
 import _ from 'lodash';
 
-const stringify = (value, replacer = ' ', spacesCount = 1) => {
-  const iter = (currentValue, depth) => {
-    if (!_.isObject(currentValue)) {
-      return `${currentValue}`;
+const indent = (depth, spacesCount = 4) => ' '.repeat(depth * spacesCount - 2);
+
+const stringify = (data, depth) => {
+  if (!_.isObject(data)) {
+    return String(data);
+  }
+  const lines = Object
+    .entries(data)
+    .map(([key, value]) => `${indent(depth + 1)}  ${key}: ${stringify(value, depth + 1)}`);
+  return `{\n${lines.join('\n')}\n${indent(depth)}  }`;
+};
+
+const iter = (children, depth) => children.map((node) => {
+  switch (node.type) {
+    case 'added':
+      return `${indent(depth)}+ ${node.key}: ${stringify(node.value, depth)}`;
+    case 'deleted':
+      return `${indent(depth)}- ${node.key}: ${stringify(node.value, depth)}`;
+    case 'nested': {
+      const lines = iter(node.children, depth + 1);
+      return `${indent(depth)}  ${node.key}: {\n${lines.join('\n')}\n${indent(depth)}  }`;
     }
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize + 4);
-    const bracketIndent = replacer.repeat(indentSize);
-    const lines = Object
-      .entries(currentValue)
-      .map(([key, val]) => `${currentIndent}${key}: ${iter(val, depth + 1)}`);
+    case 'changed': {
+      const lines1 = `${indent(depth)}- ${node.key}: ${stringify(node.value1, depth)}`;
+      const lines2 = `${indent(depth)}+ ${node.key}: ${stringify(node.value2, depth)}`;
+      return `${lines1}\n${lines2}`;
+    }
+    case 'unchanged':
+      return `${indent(depth)}  ${node.key}: ${stringify(node.value, depth)}`;
+    default:
+      throw new Error(`Unknown type of data ${node.type}`);
+  }
+});
 
-    return [
-      '{',
-      ...lines,
-      `${bracketIndent}}`,
-    ].join('\n');
-  };
-  return iter(value, 1);
-};
+const formatStylish = (tree) => `{\n${iter(tree, 1).join('\n')}\n}`;
 
-const stylish = (tree) => {
-  const iter = (node, depth, spacesCount = 4) => {
-    const replacer = ' ';
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const indentDiff = replacer.repeat(indentSize - 2);
-    const closeIndent = replacer.repeat(indentSize - 4);
-    const lines = node.map((obj) => {
-      switch (obj.type) {
-        case 'added':
-          return `${indentDiff}+ ${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
-        case 'deleted':
-          return `${indentDiff}- ${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
-        case 'nested':
-          return `${currentIndent}${obj.key}: ${iter(obj.children, depth + 1)}`;
-        case 'changed':
-          return `${indentDiff}- ${obj.key}: ${stringify(obj.value1, replacer, indentSize)}\n${indentDiff}+ ${obj.key}: ${stringify(obj.value2, replacer, indentSize)}`;
-        default:
-          return `${currentIndent}${obj.key}: ${stringify(obj.value, replacer, indentSize)}`;
-      }
-    });
-    return ['{', ...lines, `${closeIndent}}`].join('\n');
-  };
-  return iter(tree, 1);
-};
-
-export default stylish;
+export default formatStylish;

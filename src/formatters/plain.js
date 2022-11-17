@@ -1,36 +1,35 @@
-const stringifyValue = (value) => {
-  if (value === null) return value;
-  switch (typeof value) {
-    case 'string':
-      return `'${value}'`;
-    case 'number':
-      return `${value}`;
-    case 'boolean':
-      return `${value}`;
-    case 'object':
-      return '[complex value]';
-    default:
-      throw new Error(`bad type of ${value}`);
+import _ from 'lodash';
+
+const stringify = (data) => {
+  if (_.isObject(data)) {
+    return '[complex value]';
   }
+  if (typeof data === 'string') {
+    return `'${data}'`;
+  }
+  return String(data);
 };
 
-const plain = (tree) => {
-  const iter = (node, path) => {
-    const lines = node.map((obj) => {
-      switch (obj.type) {
-        case 'added':
-          return `Property '${path}${obj.key}' was added with value: ${stringifyValue(obj.value)}`;
-        case 'deleted':
-          return `Property '${path}${obj.key}' was removed`;
-        case 'nested':
-          return iter(obj.children, `${path}${obj.key}.`);
-        case 'changed':
-          return `Property '${path}${obj.key}' was updated. From ${stringifyValue(obj.value1)} to ${stringifyValue(obj.value2)}`;
-        default: return '';
-      }
-    });
-    return lines.filter((str) => str !== '').join('\n');
-  };
-  return iter(tree, '');
+const iter = (children, path) => {
+  const lines = children.map((node) => {
+    switch (node.type) {
+      case 'added':
+        return `Property '${path}${node.key}' was added with value: ${stringify(node.value)}`;
+      case 'deleted':
+        return `Property '${path}${node.key}' was removed`;
+      case 'nested':
+        return iter(node.children, `${path}${node.key}.`);
+      case 'changed':
+        return `Property '${path}${node.key}' was updated. From ${stringify(node.value1)} to ${stringify(node.value2)}`;
+      case 'unchanged':
+        return null;
+      default:
+        throw new Error(`Unknown type of data ${node.type}`);
+    }
+  });
+  return lines.filter(Boolean).join('\n');
 };
-export default plain;
+
+const formatPlain = (tree) => iter(tree, '');
+
+export default formatPlain;
